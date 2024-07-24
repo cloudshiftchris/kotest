@@ -19,6 +19,10 @@ jobs:
          run_docs: ${{ steps.docs-changed.outputs.exists }}
          run_tests: ${{ steps.non-docs-changed.outputs.exists }}
       steps:
+         # https://github.com/actions/checkout
+         -  name: "Checkout"
+            uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
+
          -  name: "Doc changes"
             uses: yumemi-inc/changed-files@v3
             id: docs-changed
@@ -70,6 +74,10 @@ jobs:
          fail-fast: false
       runs-on: ${{ matrix.os }}
       steps:
+         # https://github.com/actions/checkout
+         -  name: "Checkout"
+            uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
+
          -  name: Setup build
             uses: ./.github/actions/setup-build
             with:

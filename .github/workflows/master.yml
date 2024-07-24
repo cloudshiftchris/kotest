@@ -28,6 +28,10 @@ jobs:
    validate-primary:
       runs-on: ubuntu-latest
       steps:
+         # https://github.com/actions/checkout
+         -  name: "Checkout"
+            uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
+
          -  name: Setup build
             uses: ./.github/actions/setup-build
             with:
@@ -51,22 +55,30 @@ jobs:
          fail-fast: false
       runs-on: ${{ matrix.os }}
       steps:
-          -  name: Setup build
-             uses: ./.github/actions/setup-build
-             with:
-              cc-encryption-key: ${{ secrets.GRADLE_CONFIGURATION_CACHE_ENCRYPTION_KEY }}
+         # https://github.com/actions/checkout
+         -  name: "Checkout"
+            uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
 
-          -  name: Validate tests
-             run: ./gradlew check --scan --stacktrace
+         -  name: Setup build
+            uses: ./.github/actions/setup-build
+            with:
+               cc-encryption-key: ${{ secrets.GRADLE_CONFIGURATION_CACHE_ENCRYPTION_KEY }}
 
-          -  name: Post build
-             uses: ./.github/actions/post-build
+         -  name: Validate tests
+            run: ./gradlew check --scan --stacktrace
+
+         -  name: Post build
+            uses: ./.github/actions/post-build
 
    publish-sonatype:
       name: Publish all artifacts to Sonatype (Maven Central)
       runs-on: macos-latest
       needs: [ validate-primary, validate-secondary ]
       steps:
+         # https://github.com/actions/checkout
+         -  name: "Checkout"
+            uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
+
          -  name: Setup build
             uses: ./.github/actions/setup-build
             with:

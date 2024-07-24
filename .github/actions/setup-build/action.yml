@@ -17,10 +17,6 @@ runs:
             mklink /D %USERPROFILE%\.konan D:\.konan
          shell: cmd
 
-      # https://github.com/actions/checkout
-      -  name: "Checkout"
-         uses: "actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332" # v4.1.7
-
       # https://github.com/actions/setup-java
       -  name: "Set up JDK"
          uses: "actions/setup-java@v4"
